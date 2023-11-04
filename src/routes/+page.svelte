@@ -3,6 +3,7 @@
 	import wasm from '$lib/go/main.wasm?url';
 	import { onMount } from 'svelte';
 	import type { Finaplan } from '$lib/types';
+	import Print from '$lib/steps/Print.svelte';
 
 	onMount(() => {
 		console.log('Starting load');
@@ -129,7 +130,7 @@
 						<input type="number" class="form-control" min="0" max="100" size="3" />
 					</div>
 				{:else if step.type == StepType.Print}
-					{step.output}
+					<Print data={step.output} />
 				{/if}
 			</div>
 		</div>
