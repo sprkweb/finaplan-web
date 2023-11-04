@@ -42,6 +42,12 @@
 		output?: number[];
 	}
 
+    let initParams = {
+        intervalType: 'months',
+        intervalLength: 1,
+        intervalAmount: 12,
+    }
+
 	let steps: Step[] = [
 		{
 			name: 'Start capital',
@@ -78,7 +84,7 @@
 	];
 
 	let calc = () => {
-		let plan: Finaplan = initFinaplan('months', 1, 12); // eslint-disable-line no-undef
+		let plan: Finaplan = initFinaplan(initParams.intervalType, initParams.intervalLength, initParams.intervalAmount); // eslint-disable-line no-undef
 		steps.forEach((step) => {
 			switch (step.type) {
 				case StepType.Add:
@@ -112,8 +118,30 @@
 <div class="container">
 	<div class="card my-3">
 		<div class="card-body">
-			<!-- Init -->
-			<button type="submit" class="btn btn-primary" on:click={calc}>Refresh</button>
+            <div class="row align-items-center mb-3">
+                <div class="col-auto">
+                    Plan duration
+                </div>
+                <div class="col-auto">
+                    <div class="input-group">
+                        <input
+                            type="number"
+                            class="form-control"
+                            min="1"
+                            bind:value={initParams.intervalAmount}
+                            size="15">
+                        <select class="form-select" bind:value={initParams.intervalType}>
+                            <option value="days">days</option>
+                            <option value="weeks">weeks</option>
+                            <option value="months">months</option>
+                            <option value="years">years</option>
+                        </select>
+                    </div>
+                </div>
+              </div>
+
+
+			<button type="submit" class="btn btn-primary" on:click={calc}>Calculate</button>
 		</div>
 	</div>
 
