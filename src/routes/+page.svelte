@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import type { Finaplan } from '$lib/types';
 	import Print from '$lib/steps/Print.svelte';
+	import Init, { type InitParams } from '$lib/steps/Init.svelte';
 
 	onMount(() => {
 		console.log('Starting load');
@@ -42,11 +43,7 @@
 		output?: number[];
 	}
 
-    let initParams = {
-        intervalType: 'months',
-        intervalLength: 1,
-        intervalAmount: 12,
-    }
+    let initParams: InitParams;
 
 	let steps: Step[] = [
 		{
@@ -118,29 +115,7 @@
 <div class="container">
 	<div class="card my-3">
 		<div class="card-body">
-            <div class="row align-items-center mb-3">
-                <div class="col-auto">
-                    Plan duration
-                </div>
-                <div class="col-auto">
-                    <div class="input-group">
-                        <input
-                            type="number"
-                            class="form-control"
-                            min="1"
-                            bind:value={initParams.intervalAmount}
-                            size="15">
-                        <select class="form-select" bind:value={initParams.intervalType}>
-                            <option value="days">days</option>
-                            <option value="weeks">weeks</option>
-                            <option value="months">months</option>
-                            <option value="years">years</option>
-                        </select>
-                    </div>
-                </div>
-              </div>
-
-
+            <Init bind:value={initParams} />
 			<button type="submit" class="btn btn-primary" on:click={calc}>Calculate</button>
 		</div>
 	</div>
@@ -158,7 +133,7 @@
 						<input type="number" class="form-control" min="0" max="100" size="3" />
 					</div>
 				{:else if step.type == StepType.Print}
-					<Print data={step.output} />
+					<Print value={step.output} />
 				{/if}
 			</div>
 		</div>
