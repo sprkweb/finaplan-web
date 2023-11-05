@@ -105,13 +105,19 @@
     }
 </script>
 
+<div class="navbar sticky-top bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand" href=".">Finaplan</a>
+        <button type="submit" class="btn btn-primary m-0" on:click={calc}>
+            Calculate
+        </button>
+    </div>
+</div>
+
 <div class="container">
     <div class="card my-3">
         <div class="card-body">
             <Init bind:value={initParams} />
-            <button type="submit" class="btn btn-primary" on:click={calc}
-                >Calculate</button
-            >
         </div>
     </div>
 

@@ -14,7 +14,7 @@
     }
 </script>
 
-<div class="row align-items-center mb-3">
+<div class="row align-items-center">
     <div class="col-auto">Plan duration</div>
     <div class="col-auto">
         <div class="input-group">
