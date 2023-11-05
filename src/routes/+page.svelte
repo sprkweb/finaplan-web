@@ -5,8 +5,8 @@
 	import type { Finaplan } from '$lib/types';
 	import Print from '$lib/steps/Print.svelte';
 	import Init, { type InitParams } from '$lib/steps/Init.svelte';
-	import Add from '$lib/steps/Add.svelte';
-	import Invest from '$lib/steps/Invest.svelte';
+	import Add, { type AddParams } from '$lib/steps/Add.svelte';
+	import Invest, { type InvestParams } from '$lib/steps/Invest.svelte';
 
 	onMount(() => {
 		console.log('Starting load');
@@ -31,17 +31,8 @@
 	interface Step {
 		name: string;
 		type: StepType;
-		addParams?: {
-			amount: number;
-			each: number;
-			start: number;
-		};
-		investParams?: {
-			interest: number;
-			interval: number;
-			start: number;
-			compound: boolean;
-		};
+		addParams?: AddParams;
+		investParams?: InvestParams;
 		output?: number[];
 	}
 
@@ -130,7 +121,7 @@
 				{#if step.type == StepType.Add}
                     <Add bind:value={step.addParams} />
 				{:else if step.type == StepType.Invest}
-                    <Invest />
+                    <Invest bind:value={step.investParams} />
 				{:else if step.type == StepType.Print}
 					<Print value={step.output} />
 				{/if}

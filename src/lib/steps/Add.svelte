@@ -31,7 +31,7 @@
 <div class="row align-items-center">
     <div class="col-auto">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="repeat" checked={value.each != 0} on:change={(e) => value.each = (e.target?.checked ? 1 : 0)}>
+            <input class="form-check-input" type="checkbox" id="repeat" checked={value.each != 0} on:change={e => value.each = (e.target?.checked ? 1 : 0)}>
             <label class="form-check-label" for="repeat">
                 Repeat {#if value.each != 0}each{/if}
             </label>
