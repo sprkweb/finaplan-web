@@ -5,6 +5,8 @@
 	import type { Finaplan } from '$lib/types';
 	import Print from '$lib/steps/Print.svelte';
 	import Init, { type InitParams } from '$lib/steps/Init.svelte';
+	import Add from '$lib/steps/Add.svelte';
+	import Invest from '$lib/steps/Invest.svelte';
 
 	onMount(() => {
 		console.log('Starting load');
@@ -126,12 +128,9 @@
 				<h5 class="card-title" bind:innerHTML={step.name} contenteditable />
 
 				{#if step.type == StepType.Add}
-					<input type="number" class="form-control" />
+                    <Add bind:value={step.addParams} />
 				{:else if step.type == StepType.Invest}
-					<div class="input-group mb-3">
-						<span class="input-group-text">%</span>
-						<input type="number" class="form-control" min="0" max="100" size="3" />
-					</div>
+                    <Invest />
 				{:else if step.type == StepType.Print}
 					<Print value={step.output} />
 				{/if}
