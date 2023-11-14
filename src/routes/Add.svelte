@@ -7,6 +7,12 @@
 </script>
 
 <script lang="ts">
+    import { getContext } from 'svelte'
+    import type { Writable } from 'svelte/store'
+    import type { InitParams } from './Init.svelte'
+
+    const initParams = getContext<Writable<InitParams>>('init-params')
+
     export let value: AddParams = {
         amount: '100',
         each: 1,
@@ -65,5 +71,8 @@
             min="1"
             bind:value={value.each}
         />
+    </div>
+    <div class="col-auto" class:invisible={value.each == 0}>
+        {$initParams.intervalType}
     </div>
 </div>

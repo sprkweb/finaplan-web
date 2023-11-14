@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { onMount, setContext } from 'svelte'
+    import { writable } from 'svelte/store'
 
     import { loadFinaplan, type Finaplan } from './finaplan'
 
@@ -33,7 +34,12 @@
         output?: number[]
     }
 
-    let initParams: InitParams
+    const initParams = writable<InitParams>({
+        intervalType: 'months',
+        intervalLength: 1,
+        intervalAmount: 12
+    })
+    setContext('init-params', initParams)
 
     let steps: Step[] = [
         {
@@ -80,9 +86,9 @@
 
     let calc = () => {
         let plan: Finaplan = window.InitFinaplan(
-            initParams.intervalType,
-            initParams.intervalLength,
-            initParams.intervalAmount
+            $initParams.intervalType,
+            $initParams.intervalLength,
+            $initParams.intervalAmount
         )
         steps.every(step => {
             switch (step.type) {
@@ -173,7 +179,7 @@
 <div class="container">
     <div class="card my-3">
         <div class="card-body">
-            <Init bind:value={initParams} />
+            <Init />
         </div>
     </div>
 

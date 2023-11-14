@@ -7,11 +7,10 @@
 </script>
 
 <script lang="ts">
-    export let value: InitParams = {
-        intervalType: 'months',
-        intervalLength: 1,
-        intervalAmount: 12
-    }
+    import { getContext } from 'svelte'
+    import type { Writable } from 'svelte/store'
+
+    const initParams = getContext<Writable<InitParams>>('init-params')
 </script>
 
 <div class="row align-items-center">
@@ -22,10 +21,10 @@
                 type="number"
                 class="form-control"
                 min="1"
-                bind:value={value.intervalAmount}
+                bind:value={$initParams.intervalAmount}
                 size="15"
             />
-            <select class="form-select" bind:value={value.intervalType}>
+            <select class="form-select" bind:value={$initParams.intervalType}>
                 <option value="days">days</option>
                 <option value="weeks">weeks</option>
                 <option value="months">months</option>

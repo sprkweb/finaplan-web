@@ -8,6 +8,12 @@
 </script>
 
 <script lang="ts">
+    import { getContext } from 'svelte'
+    import type { Writable } from 'svelte/store'
+    import type { InitParams } from './Init.svelte'
+
+    const initParams = getContext<Writable<InitParams>>('init-params')
+
     export let value: InvestParams = {
         interest: '10',
         interval: 12,
@@ -43,6 +49,7 @@
             <label for="interval">Interval</label>
         </form>
     </div>
+    <div class="col-auto">{$initParams.intervalType}</div>
 </div>
 
 <form class="form-floating mb-3">

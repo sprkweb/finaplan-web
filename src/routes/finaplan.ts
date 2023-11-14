@@ -19,7 +19,7 @@ declare global {
     }
 }
 
-interface FinaplanResult<T>{
+interface FinaplanResult<T> {
     result?: T
     error?: string
 }
