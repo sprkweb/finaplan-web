@@ -11,7 +11,7 @@ declare global {
                 importObject: WebAssembly.Imports
             }
         }
-        initFinaplan: (
+        InitFinaplan: (
             intervalType: string,
             intervalLength: number,
             intervalAmount: number
@@ -19,15 +19,21 @@ declare global {
     }
 }
 
+interface FinaplanResult<T>{
+    result?: T
+    error?: string
+}
+
 export interface Finaplan {
-    add: (amount: number, each: number, start: number) => void
+    add: (amount: string, each: number, start: number) => FinaplanResult<void>
     invest: (
-        interest: number,
+        interest: string,
         interval: number,
         start: number,
         compound: boolean
-    ) => void
-    print: () => number[]
+    ) => FinaplanResult<void>
+    inflation: (inflation: string, intervals: number) => FinaplanResult<void>
+    print: () => FinaplanResult<number[]>
 }
 
 const until = (f: () => boolean): Promise<void> => {
@@ -66,6 +72,6 @@ export async function loadFinaplan() {
     go.run(result.instance)
 
     // wait until WASM create the function
-    await until(() => window.initFinaplan != undefined)
-    return window.initFinaplan
+    await until(() => window.InitFinaplan != undefined)
+    return window.InitFinaplan
 }

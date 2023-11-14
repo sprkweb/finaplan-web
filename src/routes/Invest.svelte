@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     export interface InvestParams {
-        interest: number
+        interest: string
         interval: number
         start: number
         compound: boolean
@@ -9,7 +9,7 @@
 
 <script lang="ts">
     export let value: InvestParams = {
-        interest: 1.1,
+        interest: '10',
         interval: 12,
         start: 0,
         compound: true
@@ -20,9 +20,11 @@
     <div class="col">
         <form class="form-floating">
             <input
-                type="number"
+                type="text"
                 class="form-control"
                 id="interest"
+                pattern="-?\d+(\.\d+)?%?"
+                title="Percent (4%) or decimal number (0.04). Can be negative"
                 bind:value={value.interest}
             />
             <label for="interest">Rate</label>
@@ -60,5 +62,5 @@
         id="repeat"
         bind:checked={value.compound}
     />
-    <label class="form-check-label" for="compound"> Compound interest </label>
+    <label class="form-check-label" for="compound">Compound interest</label>
 </div>

@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     export interface AddParams {
-        amount: number
+        amount: string
         each: number
         start: number
     }
@@ -8,7 +8,7 @@
 
 <script lang="ts">
     export let value: AddParams = {
-        amount: 100,
+        amount: '100',
         each: 1,
         start: 0
     }
@@ -18,9 +18,11 @@
     <div class="col">
         <form class="form-floating">
             <input
-                type="number"
+                type="text"
                 class="form-control"
                 id="amount"
+                pattern="-?\d+(\.\d+)?"
+                title="Decimal number (4321.05). Can be negative"
                 bind:value={value.amount}
             />
             <label for="amount">Amount of money</label>
